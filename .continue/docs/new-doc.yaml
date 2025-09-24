@@ -1,0 +1,15 @@
+# name: New doc
+# version: 0.0.1
+# schema: v1
+# docs:
+#   - name: New docs
+#     startUrl: https://docs.continue.dev
+
+
+
+name: deepseek-coder-local
+    provider: ollama
+    model: deepseek-coder-v2:16b-lite-instruct-q4_K_M
+    roles:
+      - chat
+      - autocomplete

@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  # WhatsApp Web API Instance 1
+  whatsapp-api-1:
+    image: wppconnect/server:latest
+    container_name: whatsapp-api-1
+    ports:
+      - "3001:21465"
+    environment:
+      - PORT=21465
+      - SESSION_SECRET=mysecretkey1
+      - WEBHOOK_URL=http://localhost:8000/api/whatsapp/webhook/1
+      - WEBHOOK_BY_EVENTS=true
+      - WEBHOOK_UPLOAD_S3=false
+      - WEBHOOK_ALLOWED_URLS=localhost
+    volumes:
+      - ./whatsapp-data/session1:/app/userDataDir
+      - ./whatsapp-data/logs1:/app/logs
+    restart: unless-stopped
+    networks:
+      - whatsapp-network
+
+  # WhatsApp Web API Instance 2
+  whatsapp-api-2:
+    image: wppconnect/server:latest
+    container_name: whatsapp-api-2
+    ports:
+      - "3002:21465"
+    environment:
+      - PORT=21465
+      - SESSION_SECRET=mysecretkey2
+      - WEBHOOK_URL=http://localhost:8000/api/whatsapp/webhook/2
+      - WEBHOOK_BY_EVENTS=true
+      - WEBHOOK_UPLOAD_S3=false
+      - WEBHOOK_ALLOWED_URLS=localhost
+    volumes:
+      - ./whatsapp-data/session2:/app/userDataDir
+      - ./whatsapp-data/logs2:/app/logs
+    restart: unless-stopped
+    networks:
+      - whatsapp-network
+
+  # WhatsApp Web API Instance 3
+  whatsapp-api-3:
+    image: wppconnect/server:latest
+    container_name: whatsapp-api-3
+    ports:
+      - "3003:21465"
+    environment:
+      - PORT=21465
+      - SESSION_SECRET=mysecretkey3
+      - WEBHOOK_URL=http://localhost:8000/api/whatsapp/webhook/3
+      - WEBHOOK_BY_EVENTS=true
+      - WEBHOOK_UPLOAD_S3=false
+      - WEBHOOK_ALLOWED_URLS=localhost
+    volumes:
+      - ./whatsapp-data/session3:/app/userDataDir
+      - ./whatsapp-data/logs3:/app/logs
+    restart: unless-stopped
+    networks:
+      - whatsapp-network
+
+networks:
+  whatsapp-network:
+    driver: bridge
+
+volumes:
+  whatsapp-data:
